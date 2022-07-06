@@ -82,7 +82,7 @@ The package version to install. Defaults to `present`.
 ####`gui`
 The gui packages to install ('gnome', 'kde', or undef). Defaults to `undef`.
 
-###resource: networkmanager::openconnect
+### `resource` networkmanager::openconnect
 
 ####`authtype`
 Authentication type.
