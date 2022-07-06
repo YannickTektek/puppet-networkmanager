@@ -1,6 +1,7 @@
 # See README.md for details.
 define networkmanager::openvpn (
   $user,
+  $file_ovpn_path,
   $ta_dir,
   $connection_type,
   $password_flags,
@@ -33,7 +34,16 @@ define networkmanager::openvpn (
     }
     default: {}
   }
-
+  case $file_ovpn_path {
+    'undef': {
+      $file_ovpn_path = undef
+    }
+    default: {
+      exec { 'Split .ovpn':
+        command => ['python3', "script_split_ovpn.py ${file_ovpn_path}"],
+      }
+    }
+  }
   file { "/etc/NetworkManager/system-connections/${name}":
     ensure  => $ensure,
     owner   => 'root',
